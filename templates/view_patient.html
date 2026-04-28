@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .profile-header {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: white;
+        padding: 25px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .info-card {
+        background: white;
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .history-card {
+        border-left: 5px solid #0d6efd;
+        border-radius: 12px;
+        padding: 15px;
+        background: #fff;
+        margin-bottom: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .form-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        border-radius: 10px;
+    }
+</style>
+
+<!-- 🧑‍⚕️ HEADER -->
+<div class="profile-header">
+    <h2 class="fw-bold">🧑‍⚕️ {{ patient.full_name }}</h2>
+    <p class="mb-0">Patient Medical Profile Overview</p>
+</div>
+
+<!-- 📊 INFO SECTION -->
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="info-card">
+            <h6>📞 Phone</h6>
+            <p class="mb-0">{{ patient.phone }}</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-card">
+            <h6>🩸 Blood Group</h6>
+            <p class="mb-0">{{ patient.blood_group }}</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-card">
+            <h6>⚧ Gender</h6>
+            <p class="mb-0">{{ patient.gender }}</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ➕ ADD HISTORY -->
+<h4 class="section-title">➕ Add Medical History</h4>
+
+<div class="form-card mb-4">
+
+    <form method="POST" action="/add-history/{{ patient.id }}">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-2">
+                <input name="diagnosis" class="form-control" placeholder="Diagnosis">
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <input name="treatment" class="form-control" placeholder="Treatment">
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <input name="doctor" class="form-control" placeholder="Doctor Name">
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <input name="notes" class="form-control" placeholder="Additional Notes">
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary w-100 mt-2">
+            ➕ Add Record
+        </button>
+
+    </form>
+
+</div>
+
+<!-- 📜 MEDICAL HISTORY -->
+<h4 class="section-title">📜 Medical History</h4>
+
+{% for h in history %}
+
+<div class="history-card">
+
+    <div class="d-flex justify-content-between">
+        <h6 class="fw-bold text-primary">{{ h.diagnosis }}</h6>
+        <small class="text-muted">{{ h.date }}</small>
+    </div>
+
+    <p class="mb-1"><b>Treatment:</b> {{ h.treatment }}</p>
+    <p class="mb-1"><b>Doctor:</b> {{ h.doctor_name }}</p>
+    <p class="mb-0 text-muted"><b>Notes:</b> {{ h.notes }}</p>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

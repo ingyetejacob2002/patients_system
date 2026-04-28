@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .history-header {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .form-card {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        border: none;
+    }
+
+    .btn-submit:hover {
+        opacity: 0.9;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .patient-tag {
+        background: #f1f3f5;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<!-- 🏥 HEADER -->
+<div class="history-header">
+    <h2 class="fw-bold">🩺 Add Medical History</h2>
+    <p class="mb-0">Record diagnosis, treatment, and clinical notes</p>
+</div>
+
+<!-- 🧾 FORM CARD -->
+<div class="form-card">
+
+    <!-- 👤 Patient Info (Optional if passed from backend) -->
+    <div class="patient-tag">
+        <strong>Patient ID:</strong> {{ patient.id if patient else "N/A" }} <br>
+        <strong>Name:</strong> {{ patient.full_name if patient else "Select from system" }}
+    </div>
+
+    <form method="POST">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label>Diagnosis</label>
+                <input name="diagnosis" class="form-control" placeholder="e.g. Malaria, Diabetes">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Treatment</label>
+                <input name="treatment" class="form-control" placeholder="Prescribed treatment">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Doctor Name</label>
+                <input name="doctor" class="form-control" placeholder="Attending doctor">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Date</label>
+                <input type="date" name="date" class="form-control">
+            </div>
+
+            <div class="col-12 mb-3">
+                <label>Clinical Notes</label>
+                <textarea name="notes" rows="4" class="form-control"
+                          placeholder="Detailed observations, lab results, symptoms..."></textarea>
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary btn-submit">
+            💾 Save Medical Record
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

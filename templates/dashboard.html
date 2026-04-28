@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- 🌟 HEADER -->
+<div class="p-4 mb-4 text-white rounded-4"
+     style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+    <h2 class="fw-bold">🏥 Patient Dashboard</h2>
+    <p class="mb-0">Manage patient records and medical history efficiently</p>
+</div>
+
+<!-- 🔍 SEARCH + ACTION -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <input type="text" id="searchInput" class="form-control w-50"
+           placeholder="Search patient by name or phone...">
+
+    <a href="/add-patient" class="btn btn-success shadow-sm">
+        ➕ Add New Patient
+    </a>
+</div>
+
+<!-- 📊 STATS CARDS -->
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary shadow-sm rounded-4">
+            <div class="card-body">
+                <h5>Total Patients</h5>
+                <h3>{{ patients|length }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success shadow-sm rounded-4">
+            <div class="card-body">
+                <h5>Active Records</h5>
+                <h3>{{ patients|length }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-dark shadow-sm rounded-4">
+            <div class="card-body">
+                <h5>System Status</h5>
+                <h3>Online 🟢</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 📋 PATIENT TABLE -->
+<div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+
+        <table class="table table-hover align-middle" id="patientTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>👤 Name</th>
+                    <th>📞 Phone</th>
+                    <th>⚧ Gender</th>
+                    <th>⚙ Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for p in patients %}
+                <tr class="table-row">
+                    <td class="fw-semibold">{{ p.full_name }}</td>
+                    <td>{{ p.phone }}</td>
+                    <td>
+                        <span class="badge bg-info text-dark">
+                            {{ p.gender }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/patient/{{ p.id }}" class="btn btn-sm btn-outline-primary">
+                            View Profile
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<!-- ⚡ SEARCH SCRIPT -->
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#patientTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.cells[0].textContent.toLowerCase();
+        let phone = row.cells[1].textContent.toLowerCase();
+
+        if (name.includes(filter) || phone.includes(filter)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+</script>
+
+<!-- 🎨 EXTRA STYLING -->
+<style>
+.table-row:hover {
+    background-color: #f1f5ff !important;
+    transition: 0.3s;
+    transform: scale(1.01);
+}
+</style>
+
+{% endblock %}

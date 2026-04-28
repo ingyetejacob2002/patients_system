@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #198754, #20c997);
+        color: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .card-box {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        padding: 20px;
+    }
+
+    .record-card {
+        border-left: 5px solid #198754;
+        padding: 15px;
+        border-radius: 12px;
+        background: #f8f9fa;
+        margin-bottom: 12px;
+        transition: 0.3s;
+    }
+
+    .record-card:hover {
+        transform: scale(1.01);
+        background: #ffffff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .badge-date {
+        background: #e9ecef;
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+    .search-box {
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+
+<!-- 🏥 HEADER -->
+<div class="page-header">
+    <h2 class="fw-bold">📁 Medical Records</h2>
+    <p class="mb-0">All patient diagnoses, treatments, and clinical history</p>
+</div>
+
+<!-- 🔍 SEARCH -->
+<div class="mb-3">
+    <input type="text" id="searchInput" class="form-control search-box"
+           placeholder="Search diagnosis, doctor, or treatment...">
+</div>
+
+<!-- 📋 RECORDS -->
+<div class="card-box">
+
+    {% for r in records %}
+    <div class="record-card">
+
+        <div class="d-flex justify-content-between">
+            <h5 class="fw-bold text-success">{{ r.diagnosis }}</h5>
+            <span class="badge-date">{{ r.date }}</span>
+        </div>
+
+        <p class="mb-1"><b>🧑‍⚕️ Doctor:</b> {{ r.doctor_name }}</p>
+        <p class="mb-1"><b>💊 Treatment:</b> {{ r.treatment }}</p>
+        <p class="mb-1"><b>📝 Notes:</b> {{ r.notes }}</p>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- ⚡ SEARCH SCRIPT -->
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let cards = document.querySelectorAll(".record-card");
+
+    cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(filter) ? "" : "none";
+    });
+});
+</script>
+
+{% endblock %}

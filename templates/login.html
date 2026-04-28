@@ -1,0 +1,111 @@
+<style>
+    body {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .login-card {
+        max-width: 420px;
+        margin: 80px auto;
+        padding: 35px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        backdrop-filter: blur(12px);
+        transition: 0.3s;
+    }
+
+    .login-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .icon {
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .login-title {
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #0d6efd;
+        font-size: 26px;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.2);
+    }
+
+    /* 🔥 BUTTON FIXED & MODERN */
+    .btn-login {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+        color: white;
+    }
+
+    .btn-login:hover {
+        transform: scale(1.02);
+        opacity: 0.95;
+    }
+
+    .link {
+        display: block;
+        text-align: center;
+        margin-top: 18px;
+        text-decoration: none;
+        font-weight: 500;
+    }
+</style>
+
+<div class="login-card">
+
+    <div class="icon">🏥</div>
+
+    <h2 class="login-title">Hospital Login</h2>
+
+    <form method="POST" action="/login" class="mt-2">
+
+        <div class="mb-3">
+            <label>Username</label>
+            <input name="username" class="form-control" placeholder="Enter username">
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter password">
+        </div>
+
+        <!-- ✅ FIXED BUTTON ALIGNMENT -->
+        <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-login">
+                🔐 Secure Login
+            </button>
+        </div>
+
+    </form>
+
+    <a href="/register" class="link text-primary">
+        Don't have an account? Create one
+    </a>
+
+</div>

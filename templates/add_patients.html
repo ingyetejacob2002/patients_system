@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-header {
+        background: linear-gradient(135deg, #198754, #20c997);
+        color: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .form-card {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #198754, #20c997);
+        border: none;
+    }
+
+    .btn-save:hover {
+        opacity: 0.9;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+</style>
+
+<!-- 🏥 HEADER -->
+<div class="form-header">
+    <h2 class="fw-bold">🏥 Add New Patient</h2>
+    <p class="mb-0">Enter patient biodata and medical information</p>
+</div>
+
+<!-- 🧾 FORM -->
+<div class="form-card">
+
+    <form method="POST">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label>Full Name</label>
+                <input name="full_name" class="form-control" placeholder="Enter full name">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Gender</label>
+                <input name="gender" class="form-control" placeholder="Male / Female">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Date of Birth</label>
+                <input type="date" name="dob" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Phone</label>
+                <input name="phone" class="form-control" placeholder="Phone number">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Email</label>
+                <input name="email" class="form-control" placeholder="Email address">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Blood Group</label>
+                <input name="blood_group" class="form-control" placeholder="e.g. O+, A-">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Genotype</label>
+                <input name="genotype" class="form-control" placeholder="e.g. AA, AS">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Address</label>
+                <input name="address" class="form-control" placeholder="Home address">
+            </div>
+
+        </div>
+
+        <button class="btn btn-success btn-save">
+            💾 Save Patient Record
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

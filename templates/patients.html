@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .card-box {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        padding: 20px;
+    }
+
+    .table thead {
+        background: #0d6efd;
+        color: white;
+    }
+
+    .btn-view {
+        border-radius: 8px;
+    }
+
+    .search-box {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .badge-gender {
+        padding: 6px 10px;
+        border-radius: 8px;
+    }
+</style>
+
+<!-- 🏥 HEADER -->
+<div class="page-header">
+    <h2 class="fw-bold">👥 All Patients</h2>
+    <p class="mb-0">View and manage all registered patients</p>
+</div>
+
+<!-- 🔍 SEARCH -->
+<div class="mb-3">
+    <input type="text" id="searchInput" class="form-control search-box"
+           placeholder="Search by name or phone...">
+</div>
+
+<!-- 📋 TABLE -->
+<div class="card-box">
+
+    <table class="table table-hover align-middle" id="patientTable">
+
+        <thead>
+            <tr>
+                <th>👤 Name</th>
+                <th>📞 Phone</th>
+                <th>🧬 Gender</th>
+                <th>🩸 Blood Group</th>
+                <th>⚙ Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for p in patients %}
+            <tr>
+                <td class="fw-semibold">{{ p.full_name }}</td>
+                <td>{{ p.phone }}</td>
+                <td>
+                    <span class="badge bg-info text-dark badge-gender">
+                        {{ p.gender }}
+                    </span>
+                </td>
+                <td>{{ p.blood_group }}</td>
+                <td>
+                    <a href="/patient/{{ p.id }}" class="btn btn-sm btn-primary btn-view">
+                        View
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- ⚡ LIVE SEARCH -->
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#patientTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.cells[0].textContent.toLowerCase();
+        let phone = row.cells[1].textContent.toLowerCase();
+
+        row.style.display = (name.includes(filter) || phone.includes(filter)) ? "" : "none";
+    });
+});
+</script>
+
+{% endblock %}
